@@ -31,20 +31,7 @@
 - 账号表（需自行添加账号） 
   tab_account
 - 使用流程
-```flow
-st=>start: 开始
-e=>end: 结束
-op=>operation: 新建数据库 导入表结构
-op1=>operation: 手动配置账号（tab_account）
-op2=>operation: 打开首页登管理台
-op3=>operation: 导入表信息
-op3=>operation: 维护字段关系（生成的代码会验证唯一索引）
-op4=>operation: 生成代码
-op5=>operation: 重启服务（仅生成html无需重启服务）
-opp=>operation: 访问新页面 路径生成规则 下面会讲
-
-st->op->op1->op2->op3->op4->op5->opp->e
-```
+![这里写图片描述](http://img.blog.csdn.net/20180117185347720?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjI5NTY4Njc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 - 路径说明
 访问页面需经过com.jryz.web.action.WebController渲染（仅仅为了统一路径） 
 规则： http://localhost/jrgo/test&core&testuser
