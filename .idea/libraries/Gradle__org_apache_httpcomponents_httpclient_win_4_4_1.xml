@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.httpcomponents:httpclient-win:4.4.1">
+    <CLASSES>
+      <root url="jar://D:/grdle/gradle-4.3-all/gradle-4.3/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient-win/4.4.1/9d33b6465de36dd1298d980119ecba816e3482f6/httpclient-win-4.4.1.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient-win/4.4.1/9d33b6465de36dd1298d980119ecba816e3482f6/httpclient-win-4.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/grdle/gradle-4.3-all/gradle-4.3/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient-win/4.4.1/127d7f2697011284c83a6e36c62b5cf6c38154a4/httpclient-win-4.4.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient-win/4.4.1/127d7f2697011284c83a6e36c62b5cf6c38154a4/httpclient-win-4.4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

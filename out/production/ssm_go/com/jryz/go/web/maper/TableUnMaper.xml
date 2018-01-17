@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jryz.go.web.maper.TableUnMaper">
+
+    <select id="list" parameterType="TableUnBean" resultType="TableUnBean">
+        <include refid="selectTableUnBean"></include>
+        <where>
+            <include refid="selectTableUnBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="TableUnBean">
+        <include refid="selectTableUnBean"></include>
+        <where>
+            <include refid="selectTableUnBeanWherePage"></include>
+        </where>
+        <trim prefix="order by" suffixOverrides=",">
+            <if test="orderBy.id != null and orderBy.id!=''">
+                id
+                <if test="orderBy.id == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.tableId != null and orderBy.tableId!=''">
+                table_id
+                <if test="orderBy.tableId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.fieldId != null and orderBy.fieldId!=''">
+                field_id
+                <if test="orderBy.fieldId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.unName != null and orderBy.unName!=''">
+                un_name
+                <if test="orderBy.unName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createBy != null and orderBy.createBy!=''">
+                create_by
+                <if test="orderBy.createBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateBy != null and orderBy.updateBy!=''">
+                update_by
+                <if test="orderBy.updateBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createDate != null and orderBy.createDate!=''">
+                create_date
+                <if test="orderBy.createDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateDate != null and orderBy.updateDate!=''">
+                update_date
+                <if test="orderBy.updateDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+        </trim>
+    </select>
+
+    <select id="get" parameterType="string" resultType="TableUnBean">
+        <include refid="selectTableUnBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="TableUnBean">
+        INSERT INTO go_table_un
+        (
+            id,  
+            table_id,  
+            field_id,  
+            un_name,  
+            create_by,  
+            update_by,  
+            create_date,  
+            update_date
+        )
+        VALUES
+        (
+            #{id}, 
+            #{tableId}, 
+            #{fieldId}, 
+            #{unName}, 
+            #{createBy}, 
+            #{updateBy}, 
+            #{createDate}, 
+            #{updateDate}
+         );
+    </insert>
+
+    <update id="update" parameterType="TableUnBean">
+        UPDATE go_table_un
+        <set>
+            <if test="id != null and id!=''">
+                id = #{id},
+            </if>
+            <if test="tableId != null and tableId!=''">
+                table_id = #{tableId},
+            </if>
+            <if test="fieldId != null and fieldId!=''">
+                field_id = #{fieldId},
+            </if>
+            <if test="unName != null and unName!=''">
+                un_name = #{unName},
+            </if>
+            <if test="createBy != null and createBy!=''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy!=''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createDate != null and createDate!=''">
+                create_date = #{createDate},
+            </if>
+            <if test="updateDate != null and updateDate!=''">
+                update_date = #{updateDate},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM go_table_un WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectTableUnBean">
+        SELECT * FROM go_table_un
+    </sql>
+
+    <sql id="selectTableUnBeanWhere">
+        <if test="id != null and id!=''">
+            AND id like #{id}
+        </if>
+        <if test="tableId != null and tableId!=''">
+            AND table_id like #{tableId}
+        </if>
+        <if test="fieldId != null and fieldId!=''">
+            AND field_id like #{fieldId}
+        </if>
+        <if test="unName != null and unName!=''">
+            AND un_name like #{unName}
+        </if>
+        <if test="createBy != null and createBy!=''">
+            AND create_by like #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy!=''">
+            AND update_by like #{updateBy}
+        </if>
+        <if test="createDate != null and createDate!=''">
+            AND create_date like #{createDate}
+        </if>
+        <if test="updateDate != null and updateDate!=''">
+            AND update_date like #{updateDate}
+        </if>
+    </sql>
+
+    <sql id="selectTableUnBeanWherePage">
+        <if test="param.id != null and param.id!=''">
+            AND id like #{param.id}
+        </if>
+        <if test="param.tableId != null and param.tableId!=''">
+            AND table_id like #{param.tableId}
+        </if>
+        <if test="param.fieldId != null and param.fieldId!=''">
+            AND field_id like #{param.fieldId}
+        </if>
+        <if test="param.unName != null and param.unName!=''">
+            AND un_name like #{param.unName}
+        </if>
+        <if test="param.createBy != null and param.createBy!=''">
+            AND create_by like #{param.createBy}
+        </if>
+        <if test="param.updateBy != null and param.updateBy!=''">
+            AND update_by like #{param.updateBy}
+        </if>
+        <if test="param.createDate != null and param.createDate!=''">
+            AND create_date like #{param.createDate}
+        </if>
+        <if test="param.updateDate != null and param.updateDate!=''">
+            AND update_date like #{param.updateDate}
+        </if>
+    </sql>
+</mapper>

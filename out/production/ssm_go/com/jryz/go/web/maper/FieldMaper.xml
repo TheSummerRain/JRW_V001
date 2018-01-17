@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jryz.go.web.maper.FieldMaper">
+
+    <select id="list" parameterType="FieldBean" resultType="FieldBean">
+        <include refid="selectFieldBean"></include>
+        <where>
+            <include refid="selectFieldBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="getOne" parameterType="string" resultType="FieldBean">
+        <include refid="selectFieldBean"></include>
+        <where>
+            <include refid="selectFieldBeanWhere"></include>
+        </where> limit 0,1
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="FieldBean">
+        <include refid="selectFieldBean"></include>
+        <where>
+            <include refid="selectFieldBeanWherePage"></include>
+        </where>
+        <trim prefix="order by" suffixOverrides=",">
+            <if test="orderBy.id != null and orderBy.id!=''">
+                id
+                <if test="orderBy.id == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.name != null and orderBy.name!=''">
+                name
+                <if test="orderBy.name == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.unName != null and orderBy.unName!=''">
+                un_name
+                <if test="orderBy.unName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.javaName != null and orderBy.javaName!=''">
+                java_name
+                <if test="orderBy.javaName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.content != null and orderBy.content!=''">
+                content
+                <if test="orderBy.content == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.length != null and orderBy.length!=''">
+                length
+                <if test="orderBy.length == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.notNull != null and orderBy.notNull!=''">
+                not_null
+                <if test="orderBy.notNull == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.tableId != null and orderBy.tableId!=''">
+                table_id
+                <if test="orderBy.tableId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.fieldType != null and orderBy.fieldType!=''">
+                fieldType
+                <if test="orderBy.fieldType == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.type != null and orderBy.type!=''">
+                type
+                <if test="orderBy.type == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.prTableId != null and orderBy.prTableId!=''">
+                pr_table_id
+                <if test="orderBy.prTableId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.dbTableId != null and orderBy.dbTableId!=''">
+                db_table_id
+                <if test="orderBy.dbTableId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.dbTableShowField != null and orderBy.dbTableShowField!=''">
+                db_table_show_field
+                <if test="orderBy.dbTableShowField == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.dbTableShowFieldDelimiter != null and orderBy.dbTableShowFieldDelimiter!=''">
+                db_table_show_field_delimiter
+                <if test="orderBy.dbTableShowFieldDelimiter == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.input != null and orderBy.input!=''">
+                input
+                <if test="orderBy.input == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.seelectType != null and orderBy.seelectType!=''">
+                seelect_type
+                <if test="orderBy.seelectType == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createBy != null and orderBy.createBy!=''">
+                create_by
+                <if test="orderBy.createBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateBy != null and orderBy.updateBy!=''">
+                update_by
+                <if test="orderBy.updateBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createDate != null and orderBy.createDate!=''">
+                create_date
+                <if test="orderBy.createDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateDate != null and orderBy.updateDate!=''">
+                update_date
+                <if test="orderBy.updateDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+        </trim>
+    </select>
+
+    <select id="get" parameterType="string" resultType="FieldBean">
+        <include refid="selectFieldBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="FieldBean">
+        INSERT INTO go_field
+        (
+            id,  
+            name,  
+            un_name,  
+            java_name,  
+            content,  
+            length,  
+            not_null,  
+            table_id,  
+            fieldType,  
+            type,  
+            pr_table_id,  
+            db_table_id,  
+            db_table_show_field,  
+            db_table_show_field_delimiter,  
+            input,  
+            seelect_type,  
+            create_by,  
+            update_by,  
+            create_date,  
+            update_date
+        )
+        VALUES
+        (
+            #{id}, 
+            #{name}, 
+            #{unName}, 
+            #{javaName}, 
+            #{content}, 
+            #{length}, 
+            #{notNull}, 
+            #{tableId}, 
+            #{fieldType}, 
+            #{type}, 
+            #{prTableId}, 
+            #{dbTableId}, 
+            #{dbTableShowField}, 
+            #{dbTableShowFieldDelimiter}, 
+            #{input}, 
+            #{seelectType}, 
+            #{createBy}, 
+            #{updateBy}, 
+            #{createDate}, 
+            #{updateDate}
+         );
+    </insert>
+
+    <update id="update" parameterType="FieldBean">
+        UPDATE go_field
+        <set>
+            <if test="id != null and id!=''">
+                id = #{id},
+            </if>
+            <if test="name != null and name!=''">
+                name = #{name},
+            </if>
+            <if test="unName != null and unName!=''">
+                un_name = #{unName},
+            </if>
+            <if test="javaName != null and javaName!=''">
+                java_name = #{javaName},
+            </if>
+            <if test="content != null and content!=''">
+                content = #{content},
+            </if>
+            <if test="length != null and length!=''">
+                length = #{length},
+            </if>
+            <if test="notNull != null and notNull!=''">
+                not_null = #{notNull},
+            </if>
+            <if test="tableId != null and tableId!=''">
+                table_id = #{tableId},
+            </if>
+            <if test="fieldType != null and fieldType!=''">
+                fieldType = #{fieldType},
+            </if>
+            <if test="type != null and type!=''">
+                type = #{type},
+            </if>
+            <if test="prTableId != null and prTableId!=''">
+                pr_table_id = #{prTableId},
+            </if>
+            <if test="dbTableId != null and dbTableId!=''">
+                db_table_id = #{dbTableId},
+            </if>
+            <if test="dbTableShowField != null and dbTableShowField!=''">
+                db_table_show_field = #{dbTableShowField},
+            </if>
+            <if test="dbTableShowFieldDelimiter != null and dbTableShowFieldDelimiter!=''">
+                db_table_show_field_delimiter = #{dbTableShowFieldDelimiter},
+            </if>
+            <if test="input != null and input!=''">
+                input = #{input},
+            </if>
+            <if test="seelectType != null and seelectType!=''">
+                seelect_type = #{seelectType},
+            </if>
+            <if test="createBy != null and createBy!=''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy!=''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createDate != null and createDate!=''">
+                create_date = #{createDate},
+            </if>
+            <if test="updateDate != null and updateDate!=''">
+                update_date = #{updateDate},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM go_field WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectFieldBean">
+        SELECT * FROM go_field
+    </sql>
+
+    <sql id="selectFieldBeanWhere">
+        <if test="id != null and id!=''">
+            AND id like #{id}
+        </if>
+        <if test="name != null and name!=''">
+            AND name like #{name}
+        </if>
+        <if test="unName != null and unName!=''">
+            AND un_name like #{unName}
+        </if>
+        <if test="javaName != null and javaName!=''">
+            AND java_name like #{javaName}
+        </if>
+        <if test="content != null and content!=''">
+            AND content like #{content}
+        </if>
+        <if test="length != null and length!=''">
+            AND length like #{length}
+        </if>
+        <if test="notNull != null and notNull!=''">
+            AND not_null like #{notNull}
+        </if>
+        <if test="tableId != null and tableId!=''">
+            AND table_id like #{tableId}
+        </if>
+        <if test="fieldType != null and fieldType!=''">
+            AND fieldType like #{fieldType}
+        </if>
+        <if test="type != null and type!=''">
+            AND type like #{type}
+        </if>
+        <if test="prTableId != null and prTableId!=''">
+            AND pr_table_id like #{prTableId}
+        </if>
+        <if test="dbTableId != null and dbTableId!=''">
+            AND db_table_id like #{dbTableId}
+        </if>
+        <if test="dbTableShowField != null and dbTableShowField!=''">
+            AND db_table_show_field like #{dbTableShowField}
+        </if>
+        <if test="dbTableShowFieldDelimiter != null and dbTableShowFieldDelimiter!=''">
+            AND db_table_show_field_delimiter like #{dbTableShowFieldDelimiter}
+        </if>
+        <if test="input != null and input!=''">
+            AND input like #{input}
+        </if>
+        <if test="seelectType != null and seelectType!=''">
+            AND seelect_type like #{seelectType}
+        </if>
+        <if test="createBy != null and createBy!=''">
+            AND create_by like #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy!=''">
+            AND update_by like #{updateBy}
+        </if>
+        <if test="createDate != null and createDate!=''">
+            AND create_date like #{createDate}
+        </if>
+        <if test="updateDate != null and updateDate!=''">
+            AND update_date like #{updateDate}
+        </if>
+    </sql>
+
+    <sql id="selectFieldBeanWherePage">
+        <if test="param.id != null and param.id!=''">
+            AND id like #{param.id}
+        </if>
+        <if test="param.name != null and param.name!=''">
+            AND name like #{param.name}
+        </if>
+        <if test="param.unName != null and param.unName!=''">
+            AND un_name like #{param.unName}
+        </if>
+        <if test="param.javaName != null and param.javaName!=''">
+            AND java_name like #{param.javaName}
+        </if>
+        <if test="param.content != null and param.content!=''">
+            AND content like #{param.content}
+        </if>
+        <if test="param.length != null and param.length!=''">
+            AND length like #{param.length}
+        </if>
+        <if test="param.notNull != null and param.notNull!=''">
+            AND not_null like #{param.notNull}
+        </if>
+        <if test="param.tableId != null and param.tableId!=''">
+            AND table_id like #{param.tableId}
+        </if>
+        <if test="param.fieldType != null and param.fieldType!=''">
+            AND fieldType like #{param.fieldType}
+        </if>
+        <if test="param.type != null and param.type!=''">
+            AND type like #{param.type}
+        </if>
+        <if test="param.prTableId != null and param.prTableId!=''">
+            AND pr_table_id like #{param.prTableId}
+        </if>
+        <if test="param.dbTableId != null and param.dbTableId!=''">
+            AND db_table_id like #{param.dbTableId}
+        </if>
+        <if test="param.dbTableShowField != null and param.dbTableShowField!=''">
+            AND db_table_show_field like #{param.dbTableShowField}
+        </if>
+        <if test="param.dbTableShowFieldDelimiter != null and param.dbTableShowFieldDelimiter!=''">
+            AND db_table_show_field_delimiter like #{param.dbTableShowFieldDelimiter}
+        </if>
+        <if test="param.input != null and param.input!=''">
+            AND input like #{param.input}
+        </if>
+        <if test="param.seelectType != null and param.seelectType!=''">
+            AND seelect_type like #{param.seelectType}
+        </if>
+        <if test="param.createBy != null and param.createBy!=''">
+            AND create_by like #{param.createBy}
+        </if>
+        <if test="param.updateBy != null and param.updateBy!=''">
+            AND update_by like #{param.updateBy}
+        </if>
+        <if test="param.createDate != null and param.createDate!=''">
+            AND create_date like #{param.createDate}
+        </if>
+        <if test="param.updateDate != null and param.updateDate!=''">
+            AND update_date like #{param.updateDate}
+        </if>
+    </sql>
+</mapper>

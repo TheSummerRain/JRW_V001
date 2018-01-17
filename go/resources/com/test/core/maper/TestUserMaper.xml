@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.core.maper.TestUserMaper">
+
+    <select id="list" parameterType="TestUserBean" resultType="TestUserBean">
+        <include refid="selectTestUserBean"></include>
+        <where>
+            <include refid="selectTestUserBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="TestUserBean">
+        <include refid="selectTestUserBean"></include>
+        <where>
+            <include refid="selectTestUserBeanWherePage"></include>
+        </where>
+        <trim prefix="order by" suffixOverrides=",">
+            <if test="orderBy.id != null and orderBy.id!=''">
+                id
+                <if test="orderBy.id == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.name != null and orderBy.name!=''">
+                name
+                <if test="orderBy.name == 'desc'">
+                    desc
+                </if>,
+            </if>
+        </trim>
+    </select>
+
+    <select id="get" parameterType="string" resultType="TestUserBean">
+        <include refid="selectTestUserBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="TestUserBean">
+        INSERT INTO test_user
+        (
+            id,  
+            name
+        )
+        VALUES
+        (
+            #{id}, 
+            #{name}
+         );
+    </insert>
+
+    <update id="update" parameterType="TestUserBean">
+        UPDATE test_user
+        <set>
+                name = #{name},
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM test_user WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectTestUserBean">
+        SELECT * FROM test_user
+    </sql>
+
+    <sql id="selectTestUserBeanWhere">
+        <if test="id != null and id!=''">
+            AND id like #{id}
+        </if>
+        <if test="name != null and name!=''">
+            AND name like #{name}
+        </if>
+    </sql>
+
+    <sql id="selectTestUserBeanWherePage">
+        <if test="param.id != null and param.id!=''">
+            AND id like #{param.id}
+        </if>
+        <if test="param.name != null and param.name!=''">
+            AND name like #{param.name}
+        </if>
+        <if test="param.idBegin != null and param.idBegin!=''">
+            AND id &gt;= #{param.idBegin}
+        </if>
+        <if test="param.idEnd != null and param.idEnd!=''">
+            AND id  &lt;= #{param.idEnd}
+        </if>
+        <if test="param.nameBegin != null and param.nameBegin!=''">
+            AND name &gt;= #{param.nameBegin}
+        </if>
+        <if test="param.nameEnd != null and param.nameEnd!=''">
+            AND name  &lt;= #{param.nameEnd}
+        </if>
+    </sql>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tests.mybatis.service.IUser">
+
+
+    <select id="getUser" parameterType="int"
+            resultType="User">
+        SELECT *
+        FROM a_user
+        WHERE id = #{userId}
+    </select>
+
+    <select id="GetUserByID" parameterType="int" resultType="User">
+        select * from `a_user` where id = #{id}
+    </select>
+
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO a_user (`name`, `age`) VALUES (#{name}, #{age});
+    </insert>
+
+    <select id="getUserList" resultType="User">
+        SELECT * FROM a_user
+    </select>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE a_user
+        SET
+        `name` =
+        #{name},
+        age = #{age}
+        WHERE
+        id =
+        #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM a_user WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.core.login.maper.UserMaper">
+
+    <select id="list" parameterType="userBean" resultType="userBean">
+        <include refid="selectUserBean"></include>
+        <where>
+            <include refid="selectUserBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="userBean">
+        <include refid="selectUserBean"></include>
+        <where>
+            <include refid="selectUserBeanWherePage"></include>
+        </where>
+    </select>
+
+    <select id="get" parameterType="string" resultType="userBean">
+        <include refid="selectUserBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="userBean">
+        INSERT INTO `core_user` (`id`, `name`, `login_name`, `password`, `oiriginal_password`, `createBy`, `updateBy`)
+        VALUES (#{id}, #{name}, #{loginName}, #{password}, #{oiriginalPassword}, #{createBy}, #{updateBy});
+    </insert>
+
+    <update id="update" parameterType="userBean">
+        UPDATE core_menu
+        <set>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="loginName != null">
+                `login_Name` = #{loginName},
+            </if>
+            <if test="password != null">
+                `password` = #{password},
+            </if>
+            <if test="oiriginalPassword != null">
+                `oiriginal_Password` = #{oiriginalPassword},
+            </if>
+        </set>
+        WHERE
+        id =
+        #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM core_user WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectUserBean">
+        SELECT * FROM core_user
+    </sql>
+
+    <sql id="selectUserBeanWhere">
+        <if test="name != null">
+            AND `name` like #{name}
+        </if>
+        <if test="loginName != null">
+            AND login_name like #{name}
+        </if>
+        <if test="password != null">
+            AND password like #{password}
+        </if>
+        <if test="oiriginalPassword != null">
+            AND oiriginal_Password like #{oiriginalPassword}
+        </if>
+    </sql>
+
+    <sql id="selectUserBeanWherePage">
+        <if test="param.name != null">
+            AND `name` like #{param.name}
+        </if>
+        <if test="param.loginName != null">
+            AND login_name like #{param.name}
+        </if>
+        <if test="param.password != null">
+            AND password like #{param.password}
+        </if>
+        <if test="param.oiriginalPassword != null">
+            AND oiriginal_Password like #{param.oiriginalPassword}
+        </if>
+    </sql>
+</mapper>

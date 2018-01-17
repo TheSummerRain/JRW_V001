@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jryz.go.web.maper.TableMaper">
+
+    <select id="list" parameterType="TableBean" resultType="TableBean">
+        <include refid="selectTableBean"></include>
+        <where>
+            <include refid="selectTableBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="TableBean">
+        <include refid="selectTableBean"></include>
+        <where>
+            <include refid="selectTableBeanWherePage"></include>
+        </where>
+        <trim prefix="order by" suffixOverrides=",">
+            <if test="orderBy.id != null and orderBy.id!=''">
+                id
+                <if test="orderBy.id == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.tableName != null and orderBy.tableName!=''">
+                table_name
+                <if test="orderBy.tableName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.name != null and orderBy.name!=''">
+                name
+                <if test="orderBy.name == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.unName != null and orderBy.unName!=''">
+                un_name
+                <if test="orderBy.unName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.packageName != null and orderBy.packageName!=''">
+                package_name
+                <if test="orderBy.packageName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.content != null and orderBy.content!=''">
+                content
+                <if test="orderBy.content == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.configId != null and orderBy.configId!=''">
+                config_id
+                <if test="orderBy.configId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.isInput != null and orderBy.isInput!=''">
+                is_input
+                <if test="orderBy.isInput == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.prTableId != null and orderBy.prTableId!=''">
+                pr_table_id
+                <if test="orderBy.prTableId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.prTableFieId != null and orderBy.prTableFieId!=''">
+                pr_table_fieId
+                <if test="orderBy.prTableFieId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createBy != null and orderBy.createBy!=''">
+                create_by
+                <if test="orderBy.createBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateBy != null and orderBy.updateBy!=''">
+                update_by
+                <if test="orderBy.updateBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createDate != null and orderBy.createDate!=''">
+                create_date
+                <if test="orderBy.createDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateDate != null and orderBy.updateDate!=''">
+                update_date
+                <if test="orderBy.updateDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+        </trim>
+    </select>
+
+    <select id="getOne" parameterType="string" resultType="TableBean">
+        <include refid="selectTableBean"></include>
+        <where>
+            <include refid="selectTableBeanWhere"></include>
+        </where> limit 0,1
+    </select>
+
+    <select id="get" parameterType="string" resultType="TableBean">
+        <include refid="selectTableBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="TableBean">
+        INSERT INTO go_table
+        (
+            id,  
+            table_name,  
+            name,  
+            un_name,  
+            package_name,  
+            content,  
+            config_id,  
+            is_input,  
+            pr_table_id,  
+            pr_table_fieId,  
+            create_by,  
+            update_by,  
+            create_date,  
+            update_date
+        )
+        VALUES
+        (
+            #{id}, 
+            #{tableName}, 
+            #{name}, 
+            #{unName}, 
+            #{packageName}, 
+            #{content}, 
+            #{configId}, 
+            #{isInput}, 
+            #{prTableId},
+            #{prTableFieId},
+            #{createBy}, 
+            #{updateBy}, 
+            #{createDate}, 
+            #{updateDate}
+         );
+    </insert>
+
+    <update id="update" parameterType="TableBean">
+        UPDATE go_table
+        <set>
+            <if test="id != null and id!=''">
+                id = #{id},
+            </if>
+            <if test="tableName != null and tableName!=''">
+                table_name = #{tableName},
+            </if>
+            <if test="name != null and name!=''">
+                name = #{name},
+            </if>
+            <if test="unName != null and unName!=''">
+                un_name = #{unName},
+            </if>
+            <if test="packageName != null and packageName!=''">
+                package_name = #{packageName},
+            </if>
+            <if test="content != null and content!=''">
+                content = #{content},
+            </if>
+            <if test="configId != null and configId!=''">
+                config_id = #{configId},
+            </if>
+            <if test="isInput != null and isInput!=''">
+                is_input = #{isInput},
+            </if>
+            <if test="prTableId != null and prTableId!=''">
+                pr_table_id = #{prTableId},
+            </if>
+            <if test="prTableFieId != null and prTableFieId!=''">
+                pr_table_fieId = #{prTableFieId},
+            </if>
+            <if test="createBy != null and createBy!=''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy!=''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createDate != null and createDate!=''">
+                create_date = #{createDate},
+            </if>
+            <if test="updateDate != null and updateDate!=''">
+                update_date = #{updateDate},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM go_table WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectTableBean">
+        SELECT * FROM go_table
+    </sql>
+
+    <sql id="selectTableBeanWhere">
+        <if test="id != null and id!=''">
+            AND id like #{id}
+        </if>
+        <if test="tableName != null and tableName!=''">
+            AND table_name like #{tableName}
+        </if>
+        <if test="name != null and name!=''">
+            AND name like #{name}
+        </if>
+        <if test="unName != null and unName!=''">
+            AND un_name like #{unName}
+        </if>
+        <if test="packageName != null and packageName!=''">
+            AND package_name like #{packageName}
+        </if>
+        <if test="content != null and content!=''">
+            AND content like #{content}
+        </if>
+        <if test="configId != null and configId!=''">
+            AND config_id like #{configId}
+        </if>
+        <if test="isInput != null and isInput!=''">
+            AND is_input like #{isInput}
+        </if>
+        <if test="prTableId != null and prTableId!=''">
+            AND pr_table_id like #{prTableId}
+        </if>
+        <if test="prTableFieId != null and prTableFieId!=''">
+            AND pr_table_fieId like #{prTableFieId}
+        </if>
+        <if test="createBy != null and createBy!=''">
+            AND create_by like #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy!=''">
+            AND update_by like #{updateBy}
+        </if>
+        <if test="createDate != null and createDate!=''">
+            AND create_date like #{createDate}
+        </if>
+        <if test="updateDate != null and updateDate!=''">
+            AND update_date like #{updateDate}
+        </if>
+    </sql>
+
+    <sql id="selectTableBeanWherePage">
+        <if test="param.id != null and param.id!=''">
+            AND id like #{param.id}
+        </if>
+        <if test="param.tableName != null and param.tableName!=''">
+            AND table_name like #{param.tableName}
+        </if>
+        <if test="param.name != null and param.name!=''">
+            AND name like #{param.name}
+        </if>
+        <if test="param.unName != null and param.unName!=''">
+            AND un_name like #{param.unName}
+        </if>
+        <if test="param.packageName != null and param.packageName!=''">
+            AND package_name like #{param.packageName}
+        </if>
+        <if test="param.content != null and param.content!=''">
+            AND content like #{param.content}
+        </if>
+        <if test="param.configId != null and param.configId!=''">
+            AND config_id like #{param.configId}
+        </if>
+        <if test="param.isInput != null and param.isInput!=''">
+            AND is_input like #{param.isInput}
+        </if>
+        <if test="param.prTableId != null and param.prTableId!=''">
+            AND pr_table_id like #{param.prTableId}
+        </if>
+        <if test="param.prTableFieId != null and param.prTableFieId!=''">
+            AND pr_table_fieId like #{param.prTableFieId}
+        </if>
+        <if test="param.createBy != null and param.createBy!=''">
+            AND create_by like #{param.createBy}
+        </if>
+        <if test="param.updateBy != null and param.updateBy!=''">
+            AND update_by like #{param.updateBy}
+        </if>
+        <if test="param.createDate != null and param.createDate!=''">
+            AND create_date like #{param.createDate}
+        </if>
+        <if test="param.updateDate != null and param.updateDate!=''">
+            AND update_date like #{param.updateDate}
+        </if>
+    </sql>
+</mapper>

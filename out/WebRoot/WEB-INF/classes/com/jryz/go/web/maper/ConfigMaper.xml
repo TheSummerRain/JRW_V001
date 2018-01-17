@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jryz.go.web.maper.ConfigMaper">
+
+    <select id="list" parameterType="ConfigBean" resultType="ConfigBean">
+        <include refid="selectConfigBean"></include>
+        <where>
+            <include refid="selectConfigBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="ConfigBean">
+        <include refid="selectConfigBean"></include>
+        <where>
+            <include refid="selectConfigBeanWherePage"></include>
+        </where>
+        <trim prefix="order by" suffixOverrides=",">
+            <if test="orderBy.id != null and orderBy.id!=''">
+                id
+                <if test="orderBy.id == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.title != null and orderBy.title!=''">
+                title
+                <if test="orderBy.title == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.basicPath != null and orderBy.basicPath!=''">
+                basic_path
+                <if test="orderBy.basicPath == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.srcPath != null and orderBy.srcPath!=''">
+                src_path
+                <if test="orderBy.srcPath == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.htmlPath != null and orderBy.htmlPath!=''">
+                html_path
+                <if test="orderBy.htmlPath == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.resourcesPath != null and orderBy.resourcesPath!=''">
+                resources_path
+                <if test="orderBy.resourcesPath == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.dbUrl != null and orderBy.dbUrl!=''">
+                db_url
+                <if test="orderBy.dbUrl == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.dbUserPassword != null and orderBy.dbUserPassword!=''">
+                db_user_password
+                <if test="orderBy.dbUserPassword == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.dbUserName != null and orderBy.dbUserName!=''">
+                db_user_name
+                <if test="orderBy.dbUserName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.dbName != null and orderBy.dbName!=''">
+                db_name
+                <if test="orderBy.dbName == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createBy != null and orderBy.createBy!=''">
+                create_by
+                <if test="orderBy.createBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateBy != null and orderBy.updateBy!=''">
+                update_by
+                <if test="orderBy.updateBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createDate != null and orderBy.createDate!=''">
+                create_date
+                <if test="orderBy.createDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateDate != null and orderBy.updateDate!=''">
+                update_date
+                <if test="orderBy.updateDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+        </trim>
+    </select>
+
+    <select id="get" parameterType="string" resultType="ConfigBean">
+        <include refid="selectConfigBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="ConfigBean">
+        INSERT INTO go_config
+        (
+            id,  
+            title,  
+            basic_path,  
+            src_path,  
+            html_path,  
+            resources_path,  
+            db_url,  
+            db_user_password,  
+            db_user_name,  
+            db_name,  
+            create_by,  
+            update_by,  
+            create_date,  
+            update_date
+        )
+        VALUES
+        (
+            #{id}, 
+            #{title}, 
+            #{basicPath}, 
+            #{srcPath}, 
+            #{htmlPath}, 
+            #{resourcesPath}, 
+            #{dbUrl}, 
+            #{dbUserPassword}, 
+            #{dbUserName}, 
+            #{dbName}, 
+            #{createBy}, 
+            #{updateBy}, 
+            #{createDate}, 
+            #{updateDate}
+         );
+    </insert>
+
+    <update id="update" parameterType="ConfigBean">
+        UPDATE go_config
+        <set>
+            <if test="id != null and id!=''">
+                id = #{id},
+            </if>
+            <if test="title != null and title!=''">
+                title = #{title},
+            </if>
+            <if test="basicPath != null and basicPath!=''">
+                basic_path = #{basicPath},
+            </if>
+            <if test="srcPath != null and srcPath!=''">
+                src_path = #{srcPath},
+            </if>
+            <if test="htmlPath != null and htmlPath!=''">
+                html_path = #{htmlPath},
+            </if>
+            <if test="resourcesPath != null and resourcesPath!=''">
+                resources_path = #{resourcesPath},
+            </if>
+            <if test="dbUrl != null and dbUrl!=''">
+                db_url = #{dbUrl},
+            </if>
+            <if test="dbUserPassword != null and dbUserPassword!=''">
+                db_user_password = #{dbUserPassword},
+            </if>
+            <if test="dbUserName != null and dbUserName!=''">
+                db_user_name = #{dbUserName},
+            </if>
+            <if test="dbName != null and dbName!=''">
+                db_name = #{dbName},
+            </if>
+            <if test="createBy != null and createBy!=''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy!=''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createDate != null and createDate!=''">
+                create_date = #{createDate},
+            </if>
+            <if test="updateDate != null and updateDate!=''">
+                update_date = #{updateDate},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM go_config WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectConfigBean">
+        SELECT * FROM go_config
+    </sql>
+
+    <sql id="selectConfigBeanWhere">
+        <if test="id != null and id!=''">
+            AND id like #{id}
+        </if>
+        <if test="title != null and title!=''">
+            AND title like #{title}
+        </if>
+        <if test="basicPath != null and basicPath!=''">
+            AND basic_path like #{basicPath}
+        </if>
+        <if test="srcPath != null and srcPath!=''">
+            AND src_path like #{srcPath}
+        </if>
+        <if test="htmlPath != null and htmlPath!=''">
+            AND html_path like #{htmlPath}
+        </if>
+        <if test="resourcesPath != null and resourcesPath!=''">
+            AND resources_path like #{resourcesPath}
+        </if>
+        <if test="dbUrl != null and dbUrl!=''">
+            AND db_url like #{dbUrl}
+        </if>
+        <if test="dbUserPassword != null and dbUserPassword!=''">
+            AND db_user_password like #{dbUserPassword}
+        </if>
+        <if test="dbUserName != null and dbUserName!=''">
+            AND db_user_name like #{dbUserName}
+        </if>
+        <if test="dbName != null and dbName!=''">
+            AND db_name like #{dbName}
+        </if>
+        <if test="createBy != null and createBy!=''">
+            AND create_by like #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy!=''">
+            AND update_by like #{updateBy}
+        </if>
+        <if test="createDate != null and createDate!=''">
+            AND create_date like #{createDate}
+        </if>
+        <if test="updateDate != null and updateDate!=''">
+            AND update_date like #{updateDate}
+        </if>
+    </sql>
+
+    <sql id="selectConfigBeanWherePage">
+        <if test="param.id != null and param.id!=''">
+            AND id like #{param.id}
+        </if>
+        <if test="param.title != null and param.title!=''">
+            AND title like #{param.title}
+        </if>
+        <if test="param.basicPath != null and param.basicPath!=''">
+            AND basic_path like #{param.basicPath}
+        </if>
+        <if test="param.srcPath != null and param.srcPath!=''">
+            AND src_path like #{param.srcPath}
+        </if>
+        <if test="param.htmlPath != null and param.htmlPath!=''">
+            AND html_path like #{param.htmlPath}
+        </if>
+        <if test="param.resourcesPath != null and param.resourcesPath!=''">
+            AND resources_path like #{param.resourcesPath}
+        </if>
+        <if test="param.dbUrl != null and param.dbUrl!=''">
+            AND db_url like #{param.dbUrl}
+        </if>
+        <if test="param.dbUserPassword != null and param.dbUserPassword!=''">
+            AND db_user_password like #{param.dbUserPassword}
+        </if>
+        <if test="param.dbUserName != null and param.dbUserName!=''">
+            AND db_user_name like #{param.dbUserName}
+        </if>
+        <if test="param.dbName != null and param.dbName!=''">
+            AND db_name like #{param.dbName}
+        </if>
+        <if test="param.createBy != null and param.createBy!=''">
+            AND create_by like #{param.createBy}
+        </if>
+        <if test="param.updateBy != null and param.updateBy!=''">
+            AND update_by like #{param.updateBy}
+        </if>
+        <if test="param.createDate != null and param.createDate!=''">
+            AND create_date like #{param.createDate}
+        </if>
+        <if test="param.updateDate != null and param.updateDate!=''">
+            AND update_date like #{param.updateDate}
+        </if>
+    </sql>
+</mapper>

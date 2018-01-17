@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.core.login.maper.AccountTypeMaper">
+
+    <select id="list" parameterType="AccountTypeBean" resultType="AccountTypeBean">
+        <include refid="selectAccountTypeBean"></include>
+        <where>
+            <include refid="selectAccountTypeBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="AccountTypeBean">
+        <include refid="selectAccountTypeBean"></include>
+        <where>
+            <include refid="selectAccountTypeBeanWherePage"></include>
+        </where>
+        <trim prefix="order by" suffixOverrides=",">
+            <if test="orderBy.id != null and orderBy.id!=''">
+                id
+                <if test="orderBy.id == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.name != null and orderBy.name!=''">
+                name
+                <if test="orderBy.name == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createBy != null and orderBy.createBy!=''">
+                create_by
+                <if test="orderBy.createBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateBy != null and orderBy.updateBy!=''">
+                update_by
+                <if test="orderBy.updateBy == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.createDate != null and orderBy.createDate!=''">
+                create_date
+                <if test="orderBy.createDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.updateDate != null and orderBy.updateDate!=''">
+                update_date
+                <if test="orderBy.updateDate == 'desc'">
+                    desc
+                </if>,
+            </if>
+        </trim>
+    </select>
+
+    <select id="get" parameterType="string" resultType="AccountTypeBean">
+        <include refid="selectAccountTypeBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="AccountTypeBean">
+        INSERT INTO tab_account_type
+        (
+            id,  
+            name,  
+            create_by,  
+            update_by,  
+            create_date,  
+            update_date
+        )
+        VALUES
+        (
+            #{id}, 
+            #{name}, 
+            #{createBy}, 
+            #{updateBy}, 
+            #{createDate}, 
+            #{updateDate}
+         );
+    </insert>
+
+    <update id="update" parameterType="AccountTypeBean">
+        UPDATE tab_account_type
+        <set>
+            <if test="id != null and id!=''">
+                id = #{id},
+            </if>
+            <if test="name != null and name!=''">
+                name = #{name},
+            </if>
+            <if test="createBy != null and createBy!=''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy!=''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createDate != null and createDate!=''">
+                create_date = #{createDate},
+            </if>
+            <if test="updateDate != null and updateDate!=''">
+                update_date = #{updateDate},
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM tab_account_type WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectAccountTypeBean">
+        SELECT * FROM tab_account_type
+    </sql>
+
+    <sql id="selectAccountTypeBeanWhere">
+        <if test="id != null and id!=''">
+            AND id like #{id}
+        </if>
+        <if test="name != null and name!=''">
+            AND name like #{name}
+        </if>
+        <if test="createBy != null and createBy!=''">
+            AND create_by like #{createBy}
+        </if>
+        <if test="updateBy != null and updateBy!=''">
+            AND update_by like #{updateBy}
+        </if>
+        <if test="createDate != null and createDate!=''">
+            AND create_date like #{createDate}
+        </if>
+        <if test="updateDate != null and updateDate!=''">
+            AND update_date like #{updateDate}
+        </if>
+    </sql>
+
+    <sql id="selectAccountTypeBeanWherePage">
+        <if test="param.id != null and param.id!=''">
+            AND id like #{param.id}
+        </if>
+        <if test="param.name != null and param.name!=''">
+            AND name like #{param.name}
+        </if>
+        <if test="param.createBy != null and param.createBy!=''">
+            AND create_by like #{param.createBy}
+        </if>
+        <if test="param.updateBy != null and param.updateBy!=''">
+            AND update_by like #{param.updateBy}
+        </if>
+        <if test="param.createDate != null and param.createDate!=''">
+            AND create_date like #{param.createDate}
+        </if>
+        <if test="param.updateDate != null and param.updateDate!=''">
+            AND update_date like #{param.updateDate}
+        </if>
+    </sql>
+</mapper>

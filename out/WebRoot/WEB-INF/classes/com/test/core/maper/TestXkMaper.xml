@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.core.maper.TestXkMaper">
+
+    <select id="list" parameterType="TestXkBean" resultType="TestXkBean">
+        <include refid="selectTestXkBean"></include>
+        <where>
+            <include refid="selectTestXkBeanWhere"></include>
+        </where>
+    </select>
+
+    <select id="listByPage" parameterType="map" resultType="TestXkBean">
+        <include refid="selectTestXkBean"></include>
+        <where>
+            <include refid="selectTestXkBeanWherePage"></include>
+        </where>
+        <trim prefix="order by" suffixOverrides=",">
+            <if test="orderBy.prUserId != null and orderBy.prUserId!=''">
+                pr_user_id
+                <if test="orderBy.prUserId == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.name != null and orderBy.name!=''">
+                name
+                <if test="orderBy.name == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.id != null and orderBy.id!=''">
+                id
+                <if test="orderBy.id == 'desc'">
+                    desc
+                </if>,
+            </if>
+            <if test="orderBy.userId != null and orderBy.userId!=''">
+                user_id
+                <if test="orderBy.userId == 'desc'">
+                    desc
+                </if>,
+            </if>
+        </trim>
+    </select>
+
+    <select id="get" parameterType="string" resultType="TestXkBean">
+        <include refid="selectTestXkBean"></include>
+        WHERE id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="TestXkBean">
+        INSERT INTO test_xk
+        (
+            pr_user_id,  
+            name,  
+            id,  
+            user_id
+        )
+        VALUES
+        (
+            #{prUserId}, 
+            #{name}, 
+            #{id}, 
+            #{userId}
+         );
+    </insert>
+
+    <update id="update" parameterType="TestXkBean">
+        UPDATE test_xk
+        <set>
+                pr_user_id = #{prUserId},
+                name = #{name},
+                user_id = #{userId},
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM test_xk WHERE id = #{id}
+    </delete>
+
+    <!-- sql片段 -->
+    <sql id="selectTestXkBean">
+        SELECT * FROM test_xk
+    </sql>
+
+    <sql id="selectTestXkBeanWhere">
+        <if test="prUserId != null and prUserId!=''">
+            AND pr_user_id like #{prUserId}
+        </if>
+        <if test="name != null and name!=''">
+            AND name like #{name}
+        </if>
+        <if test="id != null and id!=''">
+            AND id like #{id}
+        </if>
+        <if test="userId != null and userId!=''">
+            AND user_id like #{userId}
+        </if>
+    </sql>
+
+    <sql id="selectTestXkBeanWherePage">
+        <if test="param.prUserId != null and param.prUserId!=''">
+            AND pr_user_id like #{param.prUserId}
+        </if>
+        <if test="param.name != null and param.name!=''">
+            AND name like #{param.name}
+        </if>
+        <if test="param.id != null and param.id!=''">
+            AND id like #{param.id}
+        </if>
+        <if test="param.userId != null and param.userId!=''">
+            AND user_id like #{param.userId}
+        </if>
+        <if test="param.prUserIdBegin != null and param.prUserIdBegin!=''">
+            AND pr_user_id &gt;= #{param.prUserIdBegin}
+        </if>
+        <if test="param.prUserIdEnd != null and param.prUserIdEnd!=''">
+            AND pr_user_id  &lt;= #{param.prUserIdEnd}
+        </if>
+        <if test="param.nameBegin != null and param.nameBegin!=''">
+            AND name &gt;= #{param.nameBegin}
+        </if>
+        <if test="param.nameEnd != null and param.nameEnd!=''">
+            AND name  &lt;= #{param.nameEnd}
+        </if>
+        <if test="param.idBegin != null and param.idBegin!=''">
+            AND id &gt;= #{param.idBegin}
+        </if>
+        <if test="param.idEnd != null and param.idEnd!=''">
+            AND id  &lt;= #{param.idEnd}
+        </if>
+        <if test="param.userIdBegin != null and param.userIdBegin!=''">
+            AND user_id &gt;= #{param.userIdBegin}
+        </if>
+        <if test="param.userIdEnd != null and param.userIdEnd!=''">
+            AND user_id  &lt;= #{param.userIdEnd}
+        </if>
+    </sql>
+</mapper>
